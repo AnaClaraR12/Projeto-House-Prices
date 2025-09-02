@@ -60,3 +60,5 @@ O projeto passou por um pré-processamento de dados mais sofisticado para melhor
 
 ### **Modelos de Machine Learning e Resultados**
 Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Com as melhorias no pré-processamento, o modelo de Regressão Linear manteve o melhor desempenho, resultando em uma nova previsão que alcançou um score de 0.16529 na competição do Kaggle. Esses resultados destacam a importância de um pré-processamento de dados cuidadoso para aprimorar a acurácia do modelo.
+
+![Final_Kaggle](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/img/final.PNG)
