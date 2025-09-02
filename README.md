@@ -2,7 +2,7 @@
 Projeto criado para **[Competição Kaggle com o objetivo de prever preços de imóveis usando modelos de machine learning.](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)**
 
 O histórico dos resultados é mostrado abaixo e pode ser obtido no Kaggle:
-![Resultado](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/img/Resultados.PNG)
+![Resultado](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/img/resultado_final.PNG)
 
 ## **[Primeira Etapa](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/Projeto_House_Prices_Kaggle.ipynb)**
 Nesta etapa inicial do projeto, o foco foi a construção de um modelo de machine learning para prever os preços de imóveis, com uma abordagem mais direta para a limpeza e tratamento de dados.
