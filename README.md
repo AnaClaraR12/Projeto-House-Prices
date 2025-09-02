@@ -47,3 +47,12 @@ Essa abordagem mais refinada de limpeza resultou em um conjunto de dados mais ro
 Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Após a nova rodada de treinamento e avaliação com o conjunto de dados tratado, o modelo de Regressão Linear novamente apresentou o melhor desempenho. Os novos valores de erro foram um MAE de **23690.97** e um MSE de **1529206168.50**. Esses resultados mostram uma pequena melhoria em relação à primeira etapa, indicando que o tratamento de dados mais detalhado foi eficaz.
 
 A etapa final seguiu o mesmo padrão, utilizando o modelo de Regressão Linear para gerar novas previsões na base de teste do Kaggle. As previsões foram exportadas para um novo arquivo CSV, demonstrando o resultado final do projeto após as melhorias.
+
+Terceira Etapa
+O projeto foi significativamente aprimorado com um pré-processamento de dados mais sofisticado. Foram implementadas as seguintes melhorias:
+
+One-Hot Encoding: A coluna de qualidade do porão (BsmtQual) teve suas categorias transformadas em colunas numéricas binárias. Esse método também foi aplicado à coluna de qualidade da cozinha (KitchenQual), usando o parâmetro drop_first=True para evitar multicolinearidade.
+
+Imputação Refinada: Os valores nulos na coluna GarageYrBlt foram tratados de forma mais inteligente. Em vez de um valor fixo, os dados ausentes foram preenchidos com o ano de construção da própria casa (YearBuilt) nos casos em que a garagem existia, resultando em uma imputação mais precisa e contextualizada.
+
+Essas otimizações no tratamento dos dados levaram a uma melhoria no desempenho do modelo, resultando em um score de 0.16529 na competição do Kaggle.
