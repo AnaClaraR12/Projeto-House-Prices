@@ -59,6 +59,6 @@ O projeto passou por um pré-processamento de dados mais sofisticado para melhor
 - **Imputação Refinada**: A estratégia de imputação para dados ausentes foi aprimorada. Os valores nulos na coluna MSZoning foram preenchidos com a moda (valor mais frequente), garantindo a preservação da distribuição da coluna.
 
 ### **Modelos de Machine Learning e Resultados**
-Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Com as melhorias no pré-processamento, o modelo de Regressão Linear manteve o melhor desempenho, resultando em uma nova previsão que alcançou um score de 0.16529 na competição do Kaggle.
+Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Com as melhorias no pré-processamento, o modelo de Regressão Linear manteve o melhor desempenho, apresentando um MAE de 22149.49 e um MSE de 1339611769.17, e resultando em uma nova previsão que alcançou um score de 0.16529 na competição do Kaggle.
 
 ![Final_Kaggle](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/img/final.PNG)
