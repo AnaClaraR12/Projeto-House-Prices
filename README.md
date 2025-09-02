@@ -48,11 +48,15 @@ Os mesmos três modelos de machine learning da primeira etapa foram utilizados: 
 
 A etapa final seguiu o mesmo padrão, utilizando o modelo de Regressão Linear para gerar novas previsões na base de teste do Kaggle. As previsões foram exportadas para um novo arquivo CSV, demonstrando o resultado final do projeto após as melhorias.
 
-Terceira Etapa
-O projeto foi significativamente aprimorado com um pré-processamento de dados mais sofisticado. Foram implementadas as seguintes melhorias:
+## **[Terceira Etapa](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/House_Prices_Parte_03.ipynb)**
 
-One-Hot Encoding: A coluna de qualidade do porão (BsmtQual) teve suas categorias transformadas em colunas numéricas binárias. Esse método também foi aplicado à coluna de qualidade da cozinha (KitchenQual), usando o parâmetro drop_first=True para evitar multicolinearidade.
+### **Limpeza e Tratamento de Dados Avançado**
 
-Imputação Refinada: Os valores nulos na coluna GarageYrBlt foram tratados de forma mais inteligente. Em vez de um valor fixo, os dados ausentes foram preenchidos com o ano de construção da própria casa (YearBuilt) nos casos em que a garagem existia, resultando em uma imputação mais precisa e contextualizada.
+O projeto passou por um pré-processamento de dados mais sofisticado para melhorar o desempenho do modelo. Foram implementadas as seguintes melhorias:
 
-Essas otimizações no tratamento dos dados levaram a uma melhoria no desempenho do modelo, resultando em um score de 0.16529 na competição do Kaggle.
+- **One-Hot Encoding**: As colunas de qualidade do porão (BsmtQual) e da cozinha (KitchenQual) tiveram suas categorias transformadas em colunas numéricas binárias. O parâmetro drop_first=True foi usado na coluna KitchenQual para evitar multicolinearidade, tornando o modelo mais robusto.
+
+- **Imputação Refinada**: A estratégia de imputação para dados ausentes foi aprimorada. Os valores nulos na coluna MSZoning foram preenchidos com a moda (valor mais frequente), garantindo a preservação da distribuição da coluna.
+
+### **Modelos de Machine Learning e Resultados**
+Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Com as melhorias no pré-processamento, o modelo de Regressão Linear manteve o melhor desempenho, resultando em uma nova previsão que alcançou um score de 0.16529 na competição do Kaggle. Esses resultados destacam a importância de um pré-processamento de dados cuidadoso para aprimorar a acurácia do modelo.
