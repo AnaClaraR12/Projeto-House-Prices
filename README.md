@@ -23,7 +23,7 @@ O conjunto de dados foi dividido em treino e teste para avaliar o desempenho dos
 
 O desempenho de cada modelo foi avaliado usando o Erro Médio Absoluto (MAE) e o Erro Quadrático Médio (MSE), comparando os valores previstos com os valores reais da base de teste. O modelo de Regressão Linear apresentou os melhores resultados nesta etapa, com um MAE de **23763.19** e um MSE de **1533982883.44**. Um gráfico de dispersão foi gerado para visualizar o desempenho de cada modelo, comparando os valores reais com as previsões.
 
-A etapa final consistiu em aplicar o modelo de Regressão Linear (o que obteve o melhor desempenho) para fazer previsões na base de dados de teste do Kaggle (test.csv). O mesmo processo de limpeza e tratamento de dados, como a remoção de colunas com mais de 10% de valores nulos e o preenchimento de valores faltantes, foi aplicado na base de teste antes de gerar as previsões.
+A etapa final consistiu em aplicar o modelo de Regressão Linear (o que obteve o melhor desempenho) para fazer previsões na base de dados de teste do Kaggle (test.csv) resultando em uma previsão de 0,25476. O mesmo processo de limpeza e tratamento de dados, como a remoção de colunas com mais de 10% de valores nulos e o preenchimento de valores faltantes, foi aplicado na base de teste antes de gerar as previsões.
 
 ## **[Segunda Etapa](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/Projeto_House_Prices_Kaggle_Parte02.ipynb.ipynb)**
 Na segunda etapa, o projeto foi aprimorado com uma limpeza e tratamento de dados mais cuidadosos para otimizar os modelos de machine learning e melhorar a acurácia das previsões.
@@ -46,7 +46,7 @@ Essa abordagem mais refinada de limpeza resultou em um conjunto de dados mais ro
 
 Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Após a nova rodada de treinamento e avaliação com o conjunto de dados tratado, o modelo de Regressão Linear novamente apresentou o melhor desempenho. Os novos valores de erro foram um MAE de **23690.97** e um MSE de **1529206168.50**. Esses resultados mostram uma pequena melhoria em relação à primeira etapa, indicando que o tratamento de dados mais detalhado foi eficaz.
 
-A etapa final seguiu o mesmo padrão, utilizando o modelo de Regressão Linear para gerar novas previsões na base de teste do Kaggle. As previsões foram exportadas para um novo arquivo CSV, demonstrando o resultado final do projeto após as melhorias.
+A etapa final seguiu o mesmo padrão, utilizando o modelo de Regressão Linear para gerar novas previsões na base de teste do Kaggle. As previsões foram exportadas para um novo arquivo CSV, demonstrando o resultado final do projeto após as melhorias com uma previsão agora de 0,20211.
 
 ## **[Terceira Etapa](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/House_Prices_Parte_03.ipynb)**
 
@@ -59,6 +59,6 @@ O projeto passou por um pré-processamento de dados mais sofisticado para melhor
 - **Imputação Refinada**: A estratégia de imputação para dados ausentes foi aprimorada. Os valores nulos na coluna MSZoning foram preenchidos com a moda (valor mais frequente), garantindo a preservação da distribuição da coluna.
 
 ### **Modelos de Machine Learning e Resultados**
-Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Com as melhorias no pré-processamento, o modelo de Regressão Linear manteve o melhor desempenho, resultando em uma nova previsão que alcançou um score de 0.16529 na competição do Kaggle. Esses resultados destacam a importância de um pré-processamento de dados cuidadoso para aprimorar a acurácia do modelo.
+Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Com as melhorias no pré-processamento, o modelo de Regressão Linear manteve o melhor desempenho, resultando em uma nova previsão que alcançou um score de 0.16529 na competição do Kaggle.
 
 ![Final_Kaggle](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/img/final.PNG)
