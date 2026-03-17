@@ -1,64 +1,271 @@
-# House Prices 🏠
-Projeto criado para **[Competição Kaggle com o objetivo de prever preços de imóveis usando modelos de machine learning.](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)**
+# House Prices — Previsão de Preços de Imóveis
 
-O histórico dos resultados é mostrado abaixo e pode ser obtido no Kaggle:
-![Resultado](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/img/resultado_final.PNG)
+Projeto de machine learning desenvolvido para a competição **[House Prices: Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)** do Kaggle, com o objetivo de prever o preço de venda de imóveis residenciais na cidade de Ames, Iowa (EUA).
 
-## **[Primeira Etapa](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/Projeto_House_Prices_Kaggle.ipynb)**
-Nesta etapa inicial do projeto, o foco foi a construção de um modelo de machine learning para prever os preços de imóveis, com uma abordagem mais direta para a limpeza e tratamento de dados.
+> **Melhor resultado obtido:** score **0.16529** (RMSLE) na competição do Kaggle, utilizando Regressão Linear com pré-processamento refinado.
 
-### **Limpeza e Tratamento de Dados**
+---
 
-Primeiro, a base de dados de treinamento (train.csv) foi lida utilizando a biblioteca pandas. Em seguida, a análise dos dados mostrou que algumas colunas tinham uma alta porcentagem de valores nulos. Para simplificar, todas as colunas com mais de 10% de dados faltantes foram removidas. As colunas restantes com valores nulos foram preenchidas com o valor -1 para garantir que o modelo pudesse ser treinado.
+## Índice
 
-### **Modelos de Machine Learning**
+- [Visão Geral](#visão-geral)
+- [Metodologia — CRISP-DM](#metodologia--crisp-dm)
+  - [1. Entendimento do Negócio](#1-entendimento-do-negócio)
+  - [2. Entendimento dos Dados](#2-entendimento-dos-dados)
+  - [3. Preparação dos Dados](#3-preparação-dos-dados)
+  - [4. Modelagem](#4-modelagem)
+  - [5. Avaliação](#5-avaliação)
+  - [6. Implantação](#6-implantação)
+- [Funcionalidades Principais](#funcionalidades-principais)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Guia de Início Rápido](#guia-de-início-rápido)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Instalação](#instalação)
+- [Como Usar](#como-usar)
+  - [Executando o notebook](#executando-o-notebook)
+  - [Executando o app Streamlit](#executando-o-app-streamlit)
+- [Exemplos Práticos](#exemplos-práticos)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Resultados](#resultados)
 
-O conjunto de dados foi dividido em treino e teste para avaliar o desempenho dos modelos. Foram utilizados três algoritmos de regressão da biblioteca Scikit-learn:
+---
 
-- Regressão Linear: Um modelo simples e interpretável para prever a relação entre as variáveis.
+## Visão Geral
 
-- Árvore de Decisão para Regressão: Um modelo que pode capturar relações não-lineares nos dados.
+O dataset contém **1.460 registros de treinamento** e **81 variáveis** que descrevem características físicas, de qualidade e de localização de imóveis residenciais. A tarefa é um problema de **regressão supervisionada**: dado o conjunto de atributos de um imóvel, prever seu preço de venda (`SalePrice`).
 
-- KNeighborsRegressor: Um modelo de aprendizado baseado em instâncias que prevê o preço com base nos vizinhos mais próximos.
+O projeto foi estruturado seguindo a metodologia **CRISP-DM** (*Cross Industry Standard Process for Data Mining*), que organiza o ciclo de vida de um projeto de ciência de dados em seis fases iterativas, garantindo rastreabilidade e justificativa para cada decisão técnica tomada.
 
-O desempenho de cada modelo foi avaliado usando o Erro Médio Absoluto (MAE) e o Erro Quadrático Médio (MSE), comparando os valores previstos com os valores reais da base de teste. O modelo de Regressão Linear apresentou os melhores resultados nesta etapa, com um MAE de **23763.19** e um MSE de **1533982883.44**. Um gráfico de dispersão foi gerado para visualizar o desempenho de cada modelo, comparando os valores reais com as previsões.
+---
 
-A etapa final consistiu em aplicar o modelo de Regressão Linear (o que obteve o melhor desempenho) para fazer previsões na base de dados de teste do Kaggle (test.csv) resultando em uma previsão de 0,25476. O mesmo processo de limpeza e tratamento de dados, como a remoção de colunas com mais de 10% de valores nulos e o preenchimento de valores faltantes, foi aplicado na base de teste antes de gerar as previsões.
+## Metodologia — CRISP-DM
 
-## **[Segunda Etapa](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/Projeto_House_Prices_Kaggle_Parte02.ipynb.ipynb)**
-Na segunda etapa, o projeto foi aprimorado com uma limpeza e tratamento de dados mais cuidadosos para otimizar os modelos de machine learning e melhorar a acurácia das previsões.
+A escolha pelo CRISP-DM se deve ao seu amplo reconhecimento na indústria e à sua natureza **iterativa e orientada ao negócio**, o que permite revisitar fases anteriores conforme novos insights surgem durante a análise. Para um problema de competição com dados tabulares e objetivo de minimização de erro, o CRISP-DM oferece uma estrutura clara para documentar e justificar cada etapa.
 
-### **Limpeza e Tratamento de Dados Avançado**
+### 1. Entendimento do Negócio
 
-Assim como na primeira etapa, as colunas com mais de 10% de dados nulos foram removidas. No entanto, foi realizada uma análise mais detalhada em algumas colunas de texto para identificar e tratar dados categóricos. A coluna CentralAir, por exemplo, que continha os valores 'Y' e 'N', foi convertida em uma nova coluna numérica chamada central_air, onde 'Y' foi mapeado para 1 e 'N' para 0. Essa transformação permite que o modelo interprete melhor essa característica.
+**Objetivo:** prever o preço final de venda de imóveis residenciais com o menor erro possível.
 
-Para as colunas restantes com valores nulos, foi adotada uma estratégia de preenchimento mais específica:
+A métrica de avaliação da competição é o **RMSLE** (Root Mean Squared Logarithmic Error), o que penaliza mais erros em imóveis de valor mais baixo. Internamente, utilizamos **MAE** e **RMSE** em escala absoluta para comparar os modelos durante o desenvolvimento.
 
-- A coluna GarageYrBlt (ano de construção da garagem) teve seus valores nulos preenchidos com -1.
+### 2. Entendimento dos Dados
 
-- A coluna MasVnrArea (área de alvenaria) teve seus valores nulos preenchidos com 0.
+O conjunto de dados foi fornecido pela competição do Kaggle e contém:
 
-- Outras colunas numéricas com valores faltantes foram preenchidas com -1.
+| Arquivo | Descrição |
+|---|---|
+| `train.csv` | 1.460 registros com a variável alvo `SalePrice` |
+| `test.csv` | 1.459 registros sem `SalePrice` (para submissão) |
+| `data_description.txt` | Dicionário completo das 81 variáveis |
 
-Essa abordagem mais refinada de limpeza resultou em um conjunto de dados mais robusto e preparado para a modelagem.
+A análise inicial revelou que **7 colunas** possuíam mais de 10% de valores nulos (`PoolQC`, `MiscFeature`, `Alley`, `Fence`, `MasVnrType`, `FireplaceQu`, `LotFrontage`) e que a variável alvo apresenta distribuição assimétrica à direita, com mediana em torno de **$163.000** e média de **$180.921**.
 
-### **Modelos de Machine Learning e Resultados**
+### 3. Preparação dos Dados
 
-Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Após a nova rodada de treinamento e avaliação com o conjunto de dados tratado, o modelo de Regressão Linear novamente apresentou o melhor desempenho. Os novos valores de erro foram um MAE de **23690.97** e um MSE de **1529206168.50**. Esses resultados mostram uma pequena melhoria em relação à primeira etapa, indicando que o tratamento de dados mais detalhado foi eficaz.
+O pré-processamento foi desenvolvido de forma iterativa e resultou no seguinte pipeline:
 
-A etapa final seguiu o mesmo padrão, utilizando o modelo de Regressão Linear para gerar novas previsões na base de teste do Kaggle. As previsões foram exportadas para um novo arquivo CSV, demonstrando o resultado final do projeto após as melhorias com uma previsão agora de 0,20211.
+**Remoção de colunas com alta taxa de nulos**
+```python
+eliminar = base.columns[(base.isnull().sum() / base.shape[0]) > 0.10]
+base = base.drop(eliminar, axis=1)
+```
+Colunas com mais de 10% de valores ausentes foram removidas, pois qualquer estratégia de imputação introduziria viés significativo dada a proporção de dados faltantes.
 
-## **[Terceira Etapa](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/House_Prices_Parte_03.ipynb)**
+**Codificação de variáveis categóricas — One-Hot Encoding**
+```python
+# BsmtQual: nulos preenchidos com categoria explícita 'None'
+base["BsmtQual"] = base["BsmtQual"].fillna("None")
+bsmt_dummies = pd.get_dummies(base["BsmtQual"], prefix="BsmtQual").astype(int)
 
-### **Limpeza e Tratamento de Dados Avançado**
+# KitchenQual: drop_first=True para evitar multicolinearidade
+kitchen_dummies = pd.get_dummies(base["KitchenQual"], prefix="KitchenQual", drop_first=True).astype(int)
+```
+O parâmetro `drop_first=True` em `KitchenQual` foi utilizado para evitar a **armadilha da variável dummy** (*dummy variable trap*), que gera multicolinearidade perfeita e prejudica especialmente modelos lineares.
 
-O projeto passou por um pré-processamento de dados mais sofisticado para melhorar o desempenho do modelo. Foram implementadas as seguintes melhorias:
+**Imputação direcionada**
+```python
+# Ar-condicionado central: variável binária
+base["central_air"] = base["CentralAir"].apply(lambda x: 1 if x == "Y" else 0)
 
-- **One-Hot Encoding**: As colunas de qualidade do porão (BsmtQual) e da cozinha (KitchenQual) tiveram suas categorias transformadas em colunas numéricas binárias. O parâmetro drop_first=True foi usado na coluna KitchenQual para evitar multicolinearidade, tornando o modelo mais robusto.
+# MSZoning: preenchido com a moda (preserva distribuição original)
+base["MSZoning"] = base["MSZoning"].fillna(base["MSZoning"].mode()[0])
 
-- **Imputação Refinada**: A estratégia de imputação para dados ausentes foi aprimorada. Os valores nulos na coluna MSZoning foram preenchidos com a moda (valor mais frequente), garantindo a preservação da distribuição da coluna.
+# GarageYrBlt: -1 indica ausência de garagem
+# MasVnrArea: 0 indica ausência de revestimento de alvenaria
+base2 = base2.fillna({"GarageYrBlt": -1, "MasVnrArea": 0})
+```
 
-### **Modelos de Machine Learning e Resultados**
-Os mesmos três modelos de machine learning da primeira etapa foram utilizados: Regressão Linear, Árvore de Decisão para Regressão e KNeighborsRegressor. Com as melhorias no pré-processamento, o modelo de Regressão Linear manteve o melhor desempenho, apresentando um MAE de 22149.49 e um MSE de 1339611769.17, e resultando em uma nova previsão que alcançou um score de 0.16529 na competição do Kaggle.
+**Seleção de features**
 
-![Final_Kaggle](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/img/final.PNG)
+Apenas colunas numéricas foram mantidas após a codificação, eliminando variáveis textuais que não foram tratadas e que poderiam gerar erros no treinamento.
+
+### 4. Modelagem
+
+Foram avaliados três algoritmos de regressão da biblioteca **Scikit-learn**, com divisão treino/teste de 67%/33% (seed fixo `random_state=42` para reprodutibilidade):
+
+| Modelo | Justificativa |
+|---|---|
+| **Regressão Linear** | Baseline interpretável; assume relação linear entre features e preço. Eficiente em dados tabulares bem pré-processados. |
+| **Árvore de Decisão** | Captura relações não-lineares e interações entre variáveis sem necessidade de normalização. Porém, tende ao overfitting sem limitação de profundidade. |
+| **KNN Regressor (k=2)** | Modelo baseado em distância; útil para identificar padrões locais. Sensível à escala das features e a outliers. |
+
+A escolha por esses três modelos foi intencional: permitem comparar abordagens paramétricas (Regressão Linear), baseadas em regras (Árvore) e baseadas em instâncias (KNN), cobrindo diferentes hipóteses sobre a estrutura dos dados.
+
+### 5. Avaliação
+
+| Modelo | MAE | RMSE |
+|---|---|---|
+| **Regressão Linear** | **$ 22.149** | **$ 36.601** |
+| Árvore de Decisão | $ 27.113 | $ 44.145 |
+| KNN (k=2) | $ 33.273 | $ 52.285 |
+
+A **Regressão Linear** obteve o melhor desempenho em ambas as métricas. Esse resultado é consistente com a literatura: após um pré-processamento de qualidade, modelos lineares tendem a superar modelos mais complexos em datasets tabulares de tamanho moderado, pois têm menor variância e são menos propensos ao overfitting.
+
+O modelo foi então aplicado ao `test.csv` para geração do arquivo de submissão, resultando em score **0.16529** no Kaggle.
+
+### 6. Implantação
+
+O modelo foi disponibilizado por meio de um **app interativo em Streamlit** (`app.py`) com três seções:
+
+- **Visão Geral** — estatísticas descritivas e primeiros registros do dataset
+- **Comparativo de Modelos** — métricas de desempenho e gráficos Real vs. Previsto
+- **Simulador de Previsão** — interface para inserir características de um imóvel e obter uma estimativa de preço em tempo real
+
+---
+
+## Funcionalidades Principais
+
+- Análise exploratória dos dados de treinamento (estatísticas descritivas, distribuições)
+- Comparativo visual entre três modelos de regressão com métricas MAE, RMSE e MSE
+- Simulador interativo de previsão de preço com os parâmetros mais relevantes do imóvel
+- Pipeline de pré-processamento reprodutível e documentado
+
+---
+
+## Tecnologias Utilizadas
+
+| Biblioteca | Versão mínima | Uso |
+|---|---|---|
+| Python | 3.9+ | Linguagem principal |
+| pandas | 2.0.0 | Manipulação e análise de dados |
+| numpy | 1.26.0 | Operações numéricas |
+| scikit-learn | 1.4.0 | Modelos de machine learning e métricas |
+| streamlit | 1.32.0 | Interface web interativa |
+| plotly | 5.20.0 | Visualizações interativas |
+
+---
+
+## Guia de Início Rápido
+
+### Pré-requisitos
+
+- Python 3.9 ou superior instalado
+- pip atualizado (`python -m pip install --upgrade pip`)
+
+### Instalação
+
+**1. Clone o repositório**
+```bash
+git clone https://github.com/AnaClaraR12/Projeto-House-Prices.git
+cd Projeto-House-Prices
+```
+
+**2. (Opcional) Crie um ambiente virtual**
+```bash
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# Linux / macOS
+source venv/bin/activate
+```
+
+**3. Instale as dependências**
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Como Usar
+
+### Executando o notebook
+
+Abra o arquivo `House_Prices_Kaggle_Parte03.ipynb` em qualquer ambiente compatível com Jupyter (VS Code, JupyterLab, Google Colab) e execute as células em ordem.
+
+Os arquivos `train.csv` e `test.csv` devem estar na mesma pasta do notebook.
+
+### Executando o app Streamlit
+
+```bash
+streamlit run app.py
+```
+
+O app abrirá automaticamente no navegador em `http://localhost:8501`.
+
+---
+
+## Exemplos Práticos
+
+**Previsão de um imóvel via Simulador**
+
+Acesse a página **Simulador de Previsão** no app e ajuste os parâmetros:
+
+| Parâmetro | Exemplo |
+|---|---|
+| Qualidade Geral (1–10) | 7 |
+| Área Habitável (sq ft) | 1.500 |
+| Ano de Construção | 2000 |
+| Banheiros Completos | 2 |
+| Quartos (acima do solo) | 3 |
+| Área da Garagem (sq ft) | 400 |
+| Qualidade do Porão | Gd (Good) |
+| Qualidade da Cozinha | Gd (Good) |
+| Ar-Condicionado Central | Sim |
+
+Com esses parâmetros, o modelo de Regressão Linear estima um preço próximo a **$ 192.000**, acima da mediana do dataset ($ 163.000), o que é consistente com um imóvel de qualidade acima da média.
+
+**Geração do arquivo de submissão (via notebook)**
+
+Ao executar todas as células do notebook, o arquivo `resultado03.csv` é gerado automaticamente na mesma pasta com o formato exigido pela competição:
+
+```
+Id,SalePrice
+1461,128000.00
+1462,157000.00
+...
+```
+
+---
+
+## Estrutura do Projeto
+
+```
+Projeto-House-Prices/
+├── House_Prices_Kaggle_Parte03.ipynb  # Notebook principal com todo o pipeline
+├── app.py                             # App Streamlit interativo
+├── train.csv                          # Dados de treinamento (Kaggle)
+├── test.csv                           # Dados de teste (Kaggle)
+├── resultado03.csv                    # Arquivo de submissão gerado
+├── data_description.txt               # Dicionário das variáveis do dataset
+├── requirements.txt                   # Dependências do projeto
+├── img/
+│   ├── final.PNG                      # Resultado final no Kaggle
+│   └── resultado_final.PNG            # Histórico de submissões
+└── README.md
+```
+
+---
+
+## Resultados
+
+| Submissão | Modelo | Score (RMSLE) |
+|---|---|---|
+| 1ª | Regressão Linear (limpeza básica) | 0.25476 |
+| 2ª | Regressão Linear (imputação refinada) | 0.20211 |
+| **3ª** | **Regressão Linear (One-Hot Encoding + moda)** | **0.16529** |
+
+A melhoria progressiva do score demonstra que o ganho veio principalmente da **qualidade do pré-processamento** — especialmente da codificação adequada das variáveis categóricas e da estratégia de imputação direcionada — e não da complexidade do modelo em si.
+
+![Resultado Final Kaggle](https://github.com/AnaClaraR12/Projeto-House-Prices/blob/main/img/final.PNG)
